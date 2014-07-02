@@ -1,0 +1,49 @@
+﻿@model MvcApplication3.Models.Person
+@using MvcApplication3.Lib
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+@Html.AwesomeTag("I am awesome!!")
+
+<div>@ViewBag.Error</div>
+<div>@ViewBag.Status</div>
+@using (Html.BeginForm())
+{
+    //var departments = ViewBag.Departments as List<string>;
+    
+    <fieldset>
+        <legend>Login Form - @Model.Username</legend>
+        <dl>
+            <dt>@Html.DisplayNameFor(m => m.Username) </dt>
+            <dd>
+                @Html.TextBoxFor(m => m.Username)
+                @Html.ValidationMessageFor(m => m.Username)
+            </dd>
+            @*<dt>@Html.Label("username", "Username")</dt>
+            <dd>@Html.TextBox("username")</dd>*@
+        </dl>
+        <dl>
+            <dt>@Html.DisplayNameFor(m => m.Password) </dt>
+            <dd>
+                @Html.PasswordFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </dd>
+            @*<dt>@Html.Label("password", "Password")</dt>
+            <dd>@Html.Password("password")</dd>*@
+        </dl>
+        <dl>
+            <dt>@Html.DisplayNameFor(m => m.Department) </dt>
+            <dd>@Html.DropDownListFor(m => m.Department, Model.DepartmentList) </dd>
+            @*<dt>@Html.Label("department", "Department")</dt>
+            <dd>@Html.DropDownList("department", new SelectList(departments))</dd>*@
+        </dl>
+        <dl>
+            <dt>@Html.Label("gender", "Gender")</dt>
+            <dd>@Html.DropDownList("gender", new SelectList(new List<string>() { "Male", "Female" }))</dd>
+        </dl>
+        <input type="submit" value="Login" />
+    </fieldset>
+}

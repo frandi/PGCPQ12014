@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<b>@ViewBag.ItemId - @ViewBag.Name</b>
+<div>@DateTime.Now.ToString("dd MM yyyy")</div>
+<ul>
+@for (int i = 0; i < 5; i++)
+{
+    var a = i + 1;
+    <li>@a</li>
+}
+</ul>
