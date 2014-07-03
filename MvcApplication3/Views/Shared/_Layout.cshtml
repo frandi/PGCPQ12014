@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PGCP - @ViewBag.Title</h1>
+        </header>
+        <div class="row">
+            <div class="col-md-3">
+                <strong>This is sidebar</strong>
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            &copy; PGCP Q2 2014
+        </footer>
+    </div>
+</body>
+</html>

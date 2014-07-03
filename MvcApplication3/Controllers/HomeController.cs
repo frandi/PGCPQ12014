@@ -73,6 +73,14 @@ namespace MvcApplication3.Controllers
             return View(users);
         }
 
+        [HttpPost]
+        public ActionResult UserList(string term)
+        {
+            var users = _db.People.Where(p => string.IsNullOrEmpty(term) || p.Username.Contains(term)).ToList();
+
+            return View(users);
+        }
+
         public ActionResult ViewUser(int id)
         {
             var user = _db.People.Include("Department").FirstOrDefault(p => p.PersonId == id);
