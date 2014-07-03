@@ -9,8 +9,7 @@ namespace MvcApplication3.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
+        private AppContext _db = new AppContext();
 
         public ActionResult Index(string id, string name)
         {
@@ -37,7 +36,7 @@ namespace MvcApplication3.Controllers
             var departments = new List<string>() { "Accounting", "Finance", "SE" };
             //ViewBag.Departments = departments;
 
-            var user = new Person() { Username = "", Department = "SE", DepartmentList = new SelectList(departments) };
+            var user = new Person() { Username = "", DepartmentList = new SelectList(departments) };
 
             return View(user);
         }
@@ -69,13 +68,131 @@ namespace MvcApplication3.Controllers
 
         public ActionResult UserList()
         {
-            var users = new List<Person>()
-            {
-                new Person() { Username = "Prabowo", Department = "Gerindra" },
-                new Person() { Username = "Jokowi", Department = "PDIP" }
-            };
+            var users = _db.People.ToList();
 
             return View(users);
+        }
+
+        public ActionResult ViewUser(int id)
+        {
+            var user = _db.People.Include("Department").FirstOrDefault(p => p.PersonId == id);
+            if (user == null)
+                RedirectToAction("User");
+            
+            return View(user);
+        }
+
+        public ActionResult EditUser(int id)
+        {
+            var user = _db.People.Include("Department").FirstOrDefault(p => p.PersonId == id);
+            if (user == null)
+                RedirectToAction("User");
+
+            user.DepartmentList = GetDepartmentList();
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser(Person user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                    _db.SaveChanges();
+
+                    ViewBag.Message = "Success!";
+                }
+                else
+                    throw new Exception("Model is not valid!");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Failed! " + ex.Message;
+            }
+
+            user.DepartmentList = GetDepartmentList();
+            
+            return View(user);
+        }
+
+        public ActionResult AddUser()
+        {
+            var user = new Person();
+            user.DepartmentList = GetDepartmentList();
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddUser(Person user)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.People.Add(user);
+                    _db.SaveChanges();
+
+                    ViewBag.Message = "Success!";
+                }
+                else
+                    throw new Exception("Model is not valid!");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Failed! " + ex.Message;
+            }
+
+            user.DepartmentList = GetDepartmentList();
+
+            return View(user);
+        }
+
+        public ActionResult DeleteUser(int id)
+        {
+            var user = _db.People.Include("Department").FirstOrDefault(p => p.PersonId == id);
+            if (user == null)
+                return RedirectToAction("User");
+
+            user.DepartmentList = GetDepartmentList();
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteUserNow(int id)
+        {
+            try
+            {
+                var user = _db.People.Find(id);
+                if (user == null)
+                    throw new Exception("User doesn't exist!");
+
+                string username = user.Username;
+
+                _db.People.Remove(user);
+                _db.SaveChanges();
+
+                ViewBag.Message = string.Format("Success! User {0} was deleted.", username);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = "Failed! " + ex.Message;
+            }
+
+            return RedirectToAction("UserList");
+        }
+
+        private SelectList GetDepartmentList()
+        {
+            var departments = _db.Departments.OrderBy(d => d.DepartmentName).ToList();
+            return new SelectList(departments, "DepartmentId", "DepartmentName");
         }
     }
 }

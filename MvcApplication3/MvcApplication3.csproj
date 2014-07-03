@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,6 +119,29 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Lib\MVCHelper.cs" />
+    <Compile Include="Migrations\201407030045553_InitMigration.cs" />
+    <Compile Include="Migrations\201407030045553_InitMigration.Designer.cs">
+      <DependentUpon>201407030045553_InitMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407030113205_AddDOBColumn.cs" />
+    <Compile Include="Migrations\201407030113205_AddDOBColumn.Designer.cs">
+      <DependentUpon>201407030113205_AddDOBColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407030115287_RemoveDOBColumn.cs" />
+    <Compile Include="Migrations\201407030115287_RemoveDOBColumn.Designer.cs">
+      <DependentUpon>201407030115287_RemoveDOBColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407030122126_Test.cs" />
+    <Compile Include="Migrations\201407030122126_Test.Designer.cs">
+      <DependentUpon>201407030122126_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407030303050_AddedDepartment.cs" />
+    <Compile Include="Migrations\201407030303050_AddedDepartment.Designer.cs">
+      <DependentUpon>201407030303050_AddedDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AppContext.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -147,6 +176,35 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\UserList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407030045553_InitMigration.resx">
+      <DependentUpon>201407030045553_InitMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407030113205_AddDOBColumn.resx">
+      <DependentUpon>201407030113205_AddDOBColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407030115287_RemoveDOBColumn.resx">
+      <DependentUpon>201407030115287_RemoveDOBColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407030122126_Test.resx">
+      <DependentUpon>201407030122126_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407030303050_AddedDepartment.resx">
+      <DependentUpon>201407030303050_AddedDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\EditUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\AddUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\ViewUser.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\DeleteUser.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

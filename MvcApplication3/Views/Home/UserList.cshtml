@@ -4,9 +4,15 @@
 }
 
 <h2>UserList</h2>
+<div class="message">@ViewBag.Message</div>
+@Html.ActionLink("Add User", "AddUser")
 <ul>
     @foreach (var user in Model)
     {
-        <li>@user.Username - @user.Department</li>
+        <li>
+            @Html.ActionLink(user.Username, "ViewUser", new { id = user.PersonId }) 
+            @Html.ActionLink("Edit", "EditUser", new { id = user.PersonId })
+            @Html.ActionLink("Delete", "DeleteUser", new { id = user.PersonId })
+        </li>
     }
 </ul>

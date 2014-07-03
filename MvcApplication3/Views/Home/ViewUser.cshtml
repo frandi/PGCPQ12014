@@ -1,0 +1,36 @@
+﻿@model MvcApplication3.Models.Person
+
+@{
+    ViewBag.Title = "ViewUser";
+}
+
+<h2>ViewUser</h2>
+
+<fieldset>
+    <legend>Person</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DepartmentId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Department.DepartmentName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "EditUser", new { id=Model.PersonId }) |
+    @Html.ActionLink("Back to List", "UserList")
+</p>

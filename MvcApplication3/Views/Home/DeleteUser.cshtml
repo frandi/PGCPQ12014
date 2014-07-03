@@ -1,0 +1,41 @@
+﻿@model MvcApplication3.Models.Person
+
+@{
+    ViewBag.Title = "DeleteUser";
+}
+
+<h2>DeleteUser</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Person</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DepartmentId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Department.DepartmentName)
+    </div>
+</fieldset>
+@using (Html.BeginForm("DeleteUserNow", "Home", new { id = Model.PersonId }, FormMethod.Post, null))
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "UserList")
+    </p>
+}
